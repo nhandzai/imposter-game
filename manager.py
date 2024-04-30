@@ -17,9 +17,9 @@ class GameManager:
             row = []
             for j in range(self.m):
                 if index in lies_positions:
-                    row.append(crew.Crew(names[index], (i, j), True))
+                    row.append(crew.Crew(names[index], (i, j), self.n, self.m, True))
                 else:
-                    row.append(crew.Crew(names[index], (i, j)))
+                    row.append(crew.Crew(names[index], (i, j), self.n, self.m))
                 index += 1
             map_data.append(row)
 
@@ -36,4 +36,7 @@ class GameManager:
 
 
 manager = GameManager(3, 3, 1)
+for row in manager.map_data:
+    for element in row:
+        element.getScript(manager.map_data)
 manager.print_map()
