@@ -1,6 +1,7 @@
 import crew
 import random
 
+
 class GameManager:
     def __init__(self, n, m, k):
         self.n = n
@@ -17,7 +18,8 @@ class GameManager:
             row = []
             for j in range(self.m):
                 if index in lies_positions:
-                    row.append(crew.Crew(names[index], (i, j), self.n, self.m, True))
+                    row.append(
+                        crew.Crew(names[index], (i, j), self.n, self.m, True))
                 else:
                     row.append(crew.Crew(names[index], (i, j), self.n, self.m))
                 index += 1
@@ -26,13 +28,19 @@ class GameManager:
         return map_data
 
     def print_map(self):
+        max_name_length = max(len(element.name) for row in self.map_data for element in row)
+        max_script_length = max(len(element.script) if not element.isLie else len('(isLie)') for row in self.map_data for element in row)
+        
         for row in self.map_data:
             for element in row:
                 if element.isLie:
-                    print('isLie=True', end='\t')
+                    print(f'{element.name:<{max_name_length}} (isLie)'.ljust(max_name_length + max_script_length + 2), end='')
                 else:
-                    print(f'{element.name}({element.script})', end='\t')
+                    print(f'{element.name:<{max_name_length}} ({element.script})'.ljust(max_name_length + max_script_length + 2), end='')
             print()
+
+
+
 
 
 manager = GameManager(3, 3, 1)
