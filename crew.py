@@ -11,7 +11,7 @@ scripts = [
     "The bottom row has ",
     "The left-most column has ",
     "The right-most column has ",
-
+    "Among the "
 ]
 
 coordinates = [
@@ -35,10 +35,9 @@ class Crew:
                 coordinates[self.randomScriptIndex][1]
             if 0 <= x < self.n and 0 <= y < self.m:
                 if manager.map_data[x][y].is_lie:
-                    self.script = scripts[self.randomScriptIndex] + "a liar"
+                    self.script += "a liar"
                 else:
-                    self.script = scripts[self.randomScriptIndex] + \
-                        "not a liar"
+                    self.script += "not a liar"
             else:
                 self.script += "OUT OF BOUNDS"
 
@@ -54,9 +53,9 @@ class Crew:
                         is_lie_found += 1
                         break
             if is_lie_found:
-                self.script = scripts[self.randomScriptIndex] + "a liar"
+                self.script += "a liar"
             else:
-                self.script = scripts[self.randomScriptIndex] + "not a liar"
+                self.script += "not a liar"
 
         elif self.randomScriptIndex in [5, 6, 7, 8]:
             if self.randomScriptIndex in [5, 6]:
@@ -77,8 +76,7 @@ class Crew:
             if self.is_lie:
                 is_lie_found = 0 if is_lie_found else 1
 
-            self.script = scripts[self.randomScriptIndex] + \
-                f'{is_lie_found} liar'
+            self.script += f'{is_lie_found} liar'
 
         if self.is_lie:
             if "not" in self.script:
@@ -99,4 +97,5 @@ class Crew:
                     break
             else:
                 break
+        self.script = scripts[self.randomScriptIndex]
         self.checker(manager)
