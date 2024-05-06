@@ -11,7 +11,8 @@ scripts = [
     "The bottom row has ",
     "The left-most column has ",
     "The right-most column has ",
-    "Among the "
+    "Among the ",
+    "Among the ",
 ]
 
 coordinates = [
@@ -77,6 +78,16 @@ class Crew:
                 is_lie_found = 0 if is_lie_found else 1
 
             self.script += f'{is_lie_found} liar'
+
+        else:
+            color_choice = random.choice(manager.color_range)
+            is_lie_found = sum(1 for i in range(manager.n) for j in range(
+                manager.m) if manager.map_data[i][j].is_lie and manager.map_data[i][j].color == color_choice)
+
+            if self.is_lie:
+                is_lie_found = 0 if is_lie_found else 1
+
+            self.script += f'{color_choice} has {is_lie_found} liar'
 
         if self.is_lie:
             if "not" in self.script:
