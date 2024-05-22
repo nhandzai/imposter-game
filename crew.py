@@ -21,20 +21,18 @@ coordinates = [
 
 
 class Crew:
-    def __init__(self, name, pos, n, m, color="red", is_lie=False) -> None:
+    def __init__(self, name, pos, color="red", is_lie=False) -> None:
         self.name = name
         self.pos = pos
-        self.n = n
-        self.m = m
         self.is_lie = is_lie
         self.color = color
-        self.name += color
+        self.name += "-" + color
 
     def checker(self, manager):
         if self.randomScriptIndex in [0, 1, 2, 3]:
             x, y = self.pos[0] + coordinates[self.randomScriptIndex][0], self.pos[1] + \
                 coordinates[self.randomScriptIndex][1]
-            if 0 <= x < self.n and 0 <= y < self.m:
+            if 0 <= x < manager.n and 0 <= y < manager.m:
                 if manager.map_data[x][y].is_lie:
                     self.script += "a liar"
                 else:
@@ -49,7 +47,7 @@ class Crew:
                 coordinates[3][1]
             is_lie_found = 0
             for (x, y) in [(x_l, y_l), (x_r, y_r)]:
-                if 0 <= x < self.n and 0 <= y < self.m:
+                if 0 <= x < manager.n and 0 <= y < manager.m:
                     if manager.map_data[x][y].is_lie:
                         is_lie_found += 1
                         break
@@ -60,11 +58,11 @@ class Crew:
 
         elif self.randomScriptIndex in [5, 6, 7, 8]:
             if self.randomScriptIndex in [5, 6]:
-                row_index = 0 if self.randomScriptIndex == 5 else self.n - 1
-                iterable_range = range(self.m)
+                row_index = 0 if self.randomScriptIndex == 5 else manager.n - 1
+                iterable_range = range(manager.m)
             else:
-                col_index = 0 if self.randomScriptIndex == 7 else self.m - 1
-                iterable_range = range(self.n)
+                col_index = 0 if self.randomScriptIndex == 7 else manager.m - 1
+                iterable_range = range(manager.n)
 
             is_lie_found = 0
             for index in iterable_range:
@@ -104,7 +102,7 @@ class Crew:
             if self.randomScriptIndex < 4:
                 x, y = self.pos[0] + coordinates[self.randomScriptIndex][0], self.pos[1] + \
                     coordinates[self.randomScriptIndex][1]
-                if 0 <= x < self.n and 0 <= y < self.m:
+                if 0 <= x < manager.n and 0 <= y < manager.m:
                     break
             else:
                 break
